@@ -1,0 +1,36 @@
+version: "3"
+
+services:
+  backend:
+    image: dianw/senggol
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+  
+  frontend:
+    image: dianw/senggol-frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin123
+      POSTGRES_DB: senggol
+    ports:
+      - '5432:5432'
+
+  pgadmin:
+    image: 'dpage/pgadmin4'
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=a@a.com
+      - PGADMIN_DEFAULT_PASSWORD=admin123
+    ports:
+      - '6660:80'
+    depends_on:
+      - db

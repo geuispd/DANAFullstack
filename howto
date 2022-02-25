@@ -1,0 +1,2 @@
+cd senggol-frontend && docker build . --tag dianw/senggol-frontend
+cd senggol && docker build . --tag dianw/senggol
