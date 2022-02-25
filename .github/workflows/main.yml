@@ -23,7 +23,7 @@ jobs:
         with:
           context: ./senggol
           push: true
-          tags: dianw/senggol-backend:latest
+          tags: geuispd/senggol-backend:latest
   build-frontend-image-and-deploy-to-docker-hub:
     runs-on: ubuntu-latest
     steps:
@@ -41,4 +41,4 @@ jobs:
         with:
           context: ./senggol-frontend
           push: true
-          tags: dianw/senggol-frontend:latest
+          tags: geuispd/senggol-frontend:latest
