@@ -1,13 +1,32 @@
 name: Senggol CI
 
 on:
-    push:
-        branches: [ deploy ]
+  push:
+    branches: [ deploy ]
 	# pull_request:
 
 jobs:
 	build-image-and-deploy-to-docker-hub:
 		runs-on: ubuntu-latest
-        steps:
-         - name: Checkout
-           uses: actions/checkout@v2
+      steps:
+        - name: Checkout
+          uses: actions/checkout@v2
+        - name: Login to Docker Hub
+          uses: docker/login-action@v1
+          with:
+            username: ${{ secrets.DOCKER_HUB_USERNAME }}
+            password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+        - name: Set Up Docker Buildx
+          uses: docker/build-push-action@v1
+          with:
+            context: ./senggol
+            file: Dockerfile
+            push: true
+            tags: geuispd/senggol-backend:latest
+        - name: Set Up Docker Buildx
+          uses: docker/build-push-action@v2
+          with:
+            context: ./senggol-frontend
+            file: Dockerfile
+            push: true
+            tags: geuispd/senggol-frontend:latest
